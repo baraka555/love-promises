@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import "./App.css";
 
 const users = {
   baraka555: "kotrix555",
@@ -17,7 +16,12 @@ const questions = [
   "Kama ningekupatia zawadi ya kipekee, ungempenda?",
   "Unapohisi huzuni, unataka nifanye nini kukufariji?",
   "Unapofikiria juu yangu, nini kinakuja akilini mwako?",
-  "Ungependa niwe na wewe kwa maisha yako yote?"
+  "Ungependa niwe na wewe kwa maisha yako yote?",
+  "Ni wimbo upi unahisi unaelezea penzi letu?",
+  "Kumbukumbu gani unayoipenda sana kati yetu?",
+  "Ni kitu gani kidogo ninachofanya kinachokufanya ujisikie kupendwa?",
+  "Tunaweza kuota ndoto gani ya siku zijazo pamoja?",
+  "Ungependa tuandike barua ya upendo kwa siku ya kumbukumbu?"
 ];
 
 function App() {
@@ -52,57 +56,106 @@ function App() {
     setNewPromise("");
   };
 
+  const styles = {
+    container: {
+      maxWidth: "600px",
+      margin: "0 auto",
+      padding: "20px",
+      fontFamily: "sans-serif",
+      textAlign: "center",
+    },
+    title: {
+      fontSize: "24px",
+      marginBottom: "20px",
+    },
+    card: {
+      background: "#fff0f5",
+      padding: "15px",
+      borderRadius: "10px",
+      margin: "20px 0",
+      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+    },
+    input: {
+      padding: "10px",
+      margin: "10px 0",
+      width: "90%",
+      borderRadius: "8px",
+      border: "1px solid #ccc",
+    },
+    button: {
+      padding: "10px 20px",
+      borderRadius: "8px",
+      border: "none",
+      backgroundColor: "#ec407a",
+      color: "white",
+      cursor: "pointer",
+      marginTop: "10px",
+    },
+    textarea: {
+      padding: "10px",
+      width: "90%",
+      height: "80px",
+      borderRadius: "8px",
+      border: "1px solid #ccc",
+      margin: "10px 0",
+    },
+  };
+
   if (!loggedIn) {
     return (
-      <div className="container">
-        <h1 className="title">Ingia kwenye Dunia ya Wapendanao 💖</h1>
+      <div style={styles.container}>
+        <h1 style={styles.title}>Ingia kwenye Dunia ya Wapendanao 💖</h1>
         <input
+          style={styles.input}
           type="text"
           placeholder="Username"
           value={user}
           onChange={(e) => setUser(e.target.value)}
         />
         <input
+          style={styles.input}
           type="password"
           placeholder="Password"
           value={pass}
           onChange={(e) => setPass(e.target.value)}
         />
-        <button onClick={handleLogin}>Ingia</button>
+        <button style={styles.button} onClick={handleLogin}>Ingia</button>
       </div>
     );
   }
 
   return (
-    <div className="container">
-      <motion.h1 className="title" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+    <div style={styles.container}>
+      <motion.h1 style={styles.title} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         Karibu {user} 💑
       </motion.h1>
 
       {currentQuestion < questions.length && (
-        <motion.div className="card" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.div style={styles.card} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <p><strong>Swali:</strong> {questions[currentQuestion]}</p>
           <textarea
+            style={styles.textarea}
             placeholder="Andika jibu lako hapa..."
             value={currentAnswer}
             onChange={(e) => setCurrentAnswer(e.target.value)}
           />
-          <button onClick={submitAnswer}>Tuma Jibu</button>
+          <button style={styles.button} onClick={submitAnswer}>Tuma Jibu</button>
         </motion.div>
       )}
 
-      <div className="card">
+      <div style={styles.card}>
         <h2>Ahadi Mpya 💌</h2>
         <textarea
+          style={styles.textarea}
           placeholder="Andika ahadi yako ya upendo hapa..."
           value={newPromise}
           onChange={(e) => setNewPromise(e.target.value)}
         />
-        <button onClick={submitPromise}>Hifadhi Ahadi</button>
+        <button style={styles.button} onClick={submitPromise}>Hifadhi Ahadi</button>
       </div>
 
       {answers.length > 0 && (
-        <div className="card">
+        <div style={styles.card}>
           <h2>Majibu Yako</h2>
           {answers.map((ans, idx) => (
             <p key={idx}><strong>{questions[idx]}</strong><br />{ans}</p>
@@ -111,7 +164,7 @@ function App() {
       )}
 
       {promises.length > 0 && (
-        <div className="card">
+        <div style={styles.card}>
           <h2>Ahadi Zilizohifadhiwa</h2>
           {promises.map((p, i) => (
             <p key={i}>💖 {p}</p>
